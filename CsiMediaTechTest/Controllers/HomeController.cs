@@ -1,9 +1,9 @@
-﻿using CsiMediaTechTest.Models;
-using CsiMediaTechTest.Services;
+﻿using Web.Models;
 using System.Text;
 using System.Web.Mvc;
+using Core.Types;
 
-namespace CsiMediaTechTest.Controllers
+namespace Web.Controllers
 {
     public class HomeController : Controller
     {

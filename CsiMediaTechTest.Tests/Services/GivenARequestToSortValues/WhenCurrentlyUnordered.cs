@@ -1,8 +1,8 @@
-﻿using CsiMediaTechTest.Services;
+﻿using Core.Types;
 using NUnit.Framework;
 using System.Linq;
 
-namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
+namespace Core.Tests.Services.GivenARequestToAddAValue
 {
     [TestFixture]
     public class WhenCurrentlyUnordered
@@ -16,7 +16,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
             _subject.AddValue(100);
             _subject.AddValue(300);
             _subject.AddValue(200);
-            _subject.SortValues(Models.SortByEnum.Unordered);
+            _subject.SortValues(SortByEnum.Unordered);
         }
 
         [TestCase]
@@ -30,7 +30,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenTheSortByIsSetToAsc()
         {
-            Assert.That(_subject.SortBy, Is.EqualTo(Models.SortByEnum.Asc));
+            Assert.That(_subject.SortBy, Is.EqualTo(SortByEnum.Asc));
         }
 
         [TestCase]
@@ -45,7 +45,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
             Assert.That(_subject.GetChangeLog().Last().VersionNumber, Is.EqualTo(1));
             Assert.That(_subject.GetChangeLog().Last().Values.Count, Is.EqualTo(3));
             Assert.That(_subject.GetChangeLog().Last().Values.Last(), Is.EqualTo(300));
-            Assert.That(_subject.GetChangeLog().Last().SortBy, Is.EqualTo(Models.SortByEnum.Asc));
+            Assert.That(_subject.GetChangeLog().Last().SortBy, Is.EqualTo(SortByEnum.Asc));
         }
     }
 }

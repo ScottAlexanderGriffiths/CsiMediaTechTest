@@ -1,4 +1,4 @@
-﻿namespace CsiMediaTechTest.Tests.Services.GivenARequestToExportTheChangeLog
+﻿namespace Core.Tests.Services.GivenARequestToExportTheChangeLog
 {
     //[TestFixture]
     //public class WhenTheChangeLogIsPopulated

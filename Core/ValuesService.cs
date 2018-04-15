@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CsiMediaTechTest.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 
-namespace CsiMediaTechTest.Services
+namespace Core.Types
 {
     public class ValuesService
     {

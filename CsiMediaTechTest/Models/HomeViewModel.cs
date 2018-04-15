@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Core.Types;
+using System.Collections.Generic;
 
-namespace CsiMediaTechTest.Models
+namespace Web.Models
 {
     public class HomeViewModel
     {

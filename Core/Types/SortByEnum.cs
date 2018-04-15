@@ -1,4 +1,4 @@
-﻿namespace CsiMediaTechTest.Models
+﻿namespace Core.Types
 {
     public enum SortByEnum
     {

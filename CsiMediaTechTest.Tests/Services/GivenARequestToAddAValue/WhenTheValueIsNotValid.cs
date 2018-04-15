@@ -1,7 +1,7 @@
-﻿using CsiMediaTechTest.Services;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Core.Types;
 
-namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
+namespace Core.Tests.Services.GivenARequestToAddAValue
 {
     [TestFixture]
     public class WhenTheValueIsNotValid
@@ -15,7 +15,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
             _subject.AddValue(123);
             _subject.AddValue(323);
             _subject.AddValue(223);
-            _subject.SortValues(Models.SortByEnum.Desc);
+            _subject.SortValues(SortByEnum.Desc);
             _subject.AddValue(null);
         }
 
@@ -28,7 +28,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenTheSortOrderShouldNotBeResetToUnordered()
         {
-            Assert.That(_subject.SortBy, Is.Not.EqualTo(Models.SortByEnum.Unordered));
+            Assert.That(_subject.SortBy, Is.Not.EqualTo(SortByEnum.Unordered));
         }
     }
 }

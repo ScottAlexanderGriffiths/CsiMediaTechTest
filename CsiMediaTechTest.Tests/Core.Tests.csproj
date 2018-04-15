@@ -67,9 +67,13 @@
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlyUnordered.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CsiMediaTechTest\CsiMediaTechTest.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{F632EFF8-6507-4124-9B03-B7F12DCE9BC8}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CsiMediaTechTest\Web.csproj">
       <Project>{D8FAA76F-BDD8-4C15-AF14-2C1ED9130D4C}</Project>
-      <Name>CsiMediaTechTest</Name>
+      <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

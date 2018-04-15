@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CsiMediaTechTest.Models
+namespace Core.Types
 {
     public class Version
     {

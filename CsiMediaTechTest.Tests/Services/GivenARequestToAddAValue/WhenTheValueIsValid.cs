@@ -1,8 +1,8 @@
-﻿using CsiMediaTechTest.Services;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Linq;
+using Core.Types;
 
-namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
+namespace Core.Tests.Services.GivenARequestToAddAValue
 {
     [TestFixture]
     public class WhenTheValueIsValid
@@ -25,7 +25,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenTheSortOrderIsSetToUnordered()
         {
-            Assert.That(_subject.SortBy, Is.EqualTo(Models.SortByEnum.Unordered));
+            Assert.That(_subject.SortBy, Is.EqualTo(SortByEnum.Unordered));
         }
 
         [TestCase]
