@@ -12,7 +12,8 @@ namespace CsiMediaTechTest.Controllers
         {
             var viewmodel = new HomeViewModel
             {
-                Values = ValuesService.GetValues()
+                Values = ValuesService.GetValues(),
+                SortBy = ValuesService.SortBy
             };
 
             return View(viewmodel);
@@ -22,6 +23,14 @@ namespace CsiMediaTechTest.Controllers
         public ActionResult AddInput(HomeViewModel request)
         {
             ValuesService.AddValue(request.Input);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult SortValues(HomeViewModel request)
+        {
+            ValuesService.SortValues(request.SortBy);
 
             return RedirectToAction("Index");
         }

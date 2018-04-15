@@ -10,5 +10,7 @@ namespace CsiMediaTechTest.Models
         public int Input { get; set; }
 
         public List<int> Values { get; set; } = new List<int>();
+
+        public SortByEnum SortBy { get; set; }
     }
 }

@@ -36,6 +36,21 @@
                 }
 
 
+                @if (Model.Values.Any())
+                {
+                    if (Model.SortBy == CsiMediaTechTest.Models.SortByEnum.Unordered)
+                    {
+                        <p>Currently not ordered.</p>
+                    }
+                    else if (Model.SortBy == CsiMediaTechTest.Models.SortByEnum.Asc)
+                    {
+                        <p>Currently sorting in ascending order.</p>
+                    }
+                    else if (Model.SortBy == CsiMediaTechTest.Models.SortByEnum.Desc)
+                    {
+                        <p>Currently sorting in descending order.</p>
+                    }
+                }
             </div>
 
             @if (Model.Values.Any())
@@ -45,14 +60,17 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Value</th>
+                                <th scope="col">
+                                    @Html.ActionLink("Values", "SortValues", new { SortBy = Model.SortBy })
+
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @for (var i = 0; i < Model.Values.Count(); i++)
                             {
                                 <tr>
-                                    <th scope="row">@(i+1)</th>
+                                    <th scope="row">@(i + 1)</th>
                                     <td>@Model.Values[i]</td>
                                 </tr>
                             }

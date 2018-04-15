@@ -23,6 +23,12 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         }
 
         [TestCase]
+        public void ThenTheSortOrderIsSetToUnordered()
+        {
+            Assert.That(_subject.SortBy, Is.EqualTo(Models.SortByEnum.Unordered));
+        }
+
+        [TestCase]
         public void ThenThereIsOnlyOneItemInTheList()
         {
             Assert.That(_subject.GetValues().Count(), Is.EqualTo(1));
