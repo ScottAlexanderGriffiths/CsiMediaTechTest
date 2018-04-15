@@ -24,7 +24,6 @@
                 @using (Html.BeginForm("AddInput", "Home"))
                 {
                     <div class="input-group mb-3">
-
                         <div class="input-group-prepend">
                             <span class="input-group-text">Input</span>
                         </div>
@@ -34,7 +33,6 @@
                         </div>
                     </div>
                 }
-
 
                 @if (Model.Values.Any())
                 {
@@ -81,7 +79,11 @@
 
         </div>
 
-        @*<div class="table-responsive">
+
+        @if (Model.Values.Any())
+        {
+            <h3>Change Log</h3>
+            <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -91,34 +93,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Ascending</td>
-                            <td>123</td>
-                            <td>234</td>
-                            <td>456</td>
-                            <td>789</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Descending</td>
-                            <td>789</td>
-                            <td>456</td>
-                            <td>234</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Ascending</td>
-                            <td>123</td>
-                            <td>234</td>
-                        </tr>
+                        @foreach (var change in Model.ChangeLog)
+                        {
+                            <tr>
+                                <th scope="row">@change.Version</th>
+                                @if (change.SortBy == CsiMediaTechTest.Models.SortByEnum.Unordered)
+                                {
+                                    <td>Unordered</td>
+                                }
+                                else if (change.SortBy == CsiMediaTechTest.Models.SortByEnum.Asc)
+                                {
+                                    <td>Ascending</td>
+                                }
+                                else if (change.SortBy == CsiMediaTechTest.Models.SortByEnum.Desc)
+                                {
+                                    <td>Descending</td>
+                                }
+
+                                @foreach (var value in change.Values)
+                                {
+                                    <td>@value</td>
+                                }
+                            </tr>
+                        }
                     </tbody>
                 </table>
-            </div>*@
-
+            </div>
+        }
     </div>
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CsiMediaTechTest.Models;
 
@@ -20,7 +19,7 @@ namespace CsiMediaTechTest.Services
                 SortBy = SortByEnum.Unordered;
                 Values.Add(value.Value);
 
-                ChangeLog.Add(new ValueModel { Version = ChangeLog.Count + 1, SortBy = SortBy, Values = Values });
+                UpdateChangeLog();
             }
         }
 
@@ -47,12 +46,28 @@ namespace CsiMediaTechTest.Services
                     break;
             }
 
-            ChangeLog.Add(new ValueModel { Version = ChangeLog.Count + 1, SortBy = SortBy, Values = Values });
+            UpdateChangeLog();
         }
 
         public List<ValueModel> GetChangeLog()
         {
             return ChangeLog;
+        }
+
+        private void UpdateChangeLog()
+        {
+            var change = new ValueModel
+            {
+                Version = ChangeLog.Count + 1,
+                SortBy = SortBy,
+            };
+
+            foreach(var value in Values)
+            {
+                change.Values.Add(value);
+            }
+
+            ChangeLog.Add(change);
         }
     }
 }

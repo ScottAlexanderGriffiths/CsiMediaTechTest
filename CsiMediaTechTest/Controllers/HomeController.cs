@@ -13,7 +13,8 @@ namespace CsiMediaTechTest.Controllers
             var viewmodel = new HomeViewModel
             {
                 Values = ValuesService.GetValues(),
-                SortBy = ValuesService.SortBy
+                SortBy = ValuesService.SortBy,
+                ChangeLog = ValuesService.GetChangeLog()
             };
 
             return View(viewmodel);
