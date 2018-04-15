@@ -31,14 +31,5 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         {
             Assert.That(_subject.SortBy, Is.Not.EqualTo(Models.SortByEnum.Unordered));
         }
-
-        [TestCase]
-        public void ThenThereIsNoNewEntryInTheChangeLog()
-        {
-            Assert.That(_subject.GetChangeLog().Last().Version, Is.EqualTo(4));
-            Assert.That(_subject.GetChangeLog().Last().Values.Count, Is.EqualTo(3));
-            Assert.That(_subject.GetChangeLog().Last().Values.Last(), Is.EqualTo(323));
-            Assert.That(_subject.GetChangeLog().Last().SortBy, Is.EqualTo(Models.SortByEnum.Asc));
-        }
     }
 }

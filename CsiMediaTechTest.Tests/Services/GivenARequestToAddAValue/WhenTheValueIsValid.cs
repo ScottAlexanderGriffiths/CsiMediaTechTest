@@ -33,13 +33,5 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         {
             Assert.That(_subject.GetValues().Count(), Is.EqualTo(1));
         }
-
-        [TestCase]
-        public void ThenThereIsANewEntryInTheChangeLog()
-        {
-            Assert.That(_subject.GetChangeLog().First().Version, Is.EqualTo(1));
-            Assert.That(_subject.GetChangeLog().First().Values.Contains(123));
-            Assert.That(_subject.GetChangeLog().First().SortBy, Is.EqualTo(Models.SortByEnum.Unordered));
-        }
     }
 }

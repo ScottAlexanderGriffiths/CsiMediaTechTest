@@ -7,5 +7,6 @@ namespace CsiMediaTechTest.Models
         public int Version { get; set; }
         public SortByEnum SortBy { get; set; }
         public List<int> Values { get; set; } = new List<int>();
+        public long TimeTaken { get; set; }
     }
 }

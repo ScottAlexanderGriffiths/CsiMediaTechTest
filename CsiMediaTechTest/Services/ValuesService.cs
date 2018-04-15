@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CsiMediaTechTest.Models;
+using System.Diagnostics;
 
 namespace CsiMediaTechTest.Services
 {
@@ -18,8 +19,6 @@ namespace CsiMediaTechTest.Services
             {
                 SortBy = SortByEnum.Unordered;
                 Values.Add(value.Value);
-
-                UpdateChangeLog();
             }
         }
 
@@ -30,6 +29,8 @@ namespace CsiMediaTechTest.Services
 
         public void SortValues(SortByEnum currentSortBy)
         {
+            var stopwatch = Stopwatch.StartNew();
+
             switch (currentSortBy)
             {
                 case SortByEnum.Unordered:
@@ -46,7 +47,9 @@ namespace CsiMediaTechTest.Services
                     break;
             }
 
-            UpdateChangeLog();
+            stopwatch.Stop();
+
+            UpdateChangeLog(stopwatch.ElapsedMilliseconds);
         }
 
         public List<ValueModel> GetChangeLog()
@@ -54,12 +57,13 @@ namespace CsiMediaTechTest.Services
             return ChangeLog;
         }
 
-        private void UpdateChangeLog()
+        private void UpdateChangeLog(long sortTime)
         {
             var change = new ValueModel
             {
                 Version = ChangeLog.Count + 1,
                 SortBy = SortBy,
+                TimeTaken = sortTime
             };
 
             foreach(var value in Values)

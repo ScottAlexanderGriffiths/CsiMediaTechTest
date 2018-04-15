@@ -64,7 +64,6 @@
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlySortedAscending.cs" />
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlySortedDescending.cs" />
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlyUnordered.cs" />
-    <Compile Include="Services\GivenMultipleRequestsToAddAValue\WhenTheValueIsValid.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CsiMediaTechTest\CsiMediaTechTest.csproj">
