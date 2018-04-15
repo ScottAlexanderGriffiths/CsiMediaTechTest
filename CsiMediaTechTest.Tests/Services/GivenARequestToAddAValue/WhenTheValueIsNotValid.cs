@@ -1,6 +1,5 @@
 ﻿using CsiMediaTechTest.Services;
 using NUnit.Framework;
-using System.Linq;
 
 namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
 {

@@ -64,7 +64,7 @@ namespace CsiMediaTechTest.Services
         {
             var xmlSerializer = new XmlSerializer(typeof(ChangeLog));
             var stringWriter = new StringWriter();
-            using (var writer = XmlWriter.Create(stringWriter, new XmlWriterSettings { Indent = true }))
+            using (var writer = XmlWriter.Create(stringWriter))
             {
                 xmlSerializer.Serialize(writer, ChangeLog);
                 return stringWriter.ToString();

@@ -1,7 +1,4 @@
-﻿using CsiMediaTechTest.Services;
-using NUnit.Framework;
-
-namespace CsiMediaTechTest.Tests.Services.GivenARequestToExportTheChangeLog
+﻿namespace CsiMediaTechTest.Tests.Services.GivenARequestToExportTheChangeLog
 {
     //[TestFixture]
     //public class WhenTheChangeLogIsPopulated
