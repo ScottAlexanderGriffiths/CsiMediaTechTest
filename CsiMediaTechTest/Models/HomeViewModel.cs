@@ -7,6 +7,6 @@ namespace CsiMediaTechTest.Models
         public int? Input { get; set; }
         public List<int> Values { get; set; } = new List<int>();
         public SortByEnum SortBy { get; set; }
-        public List<ValueModel> ChangeLog = new List<ValueModel>();
+        public List<Version> ChangeLog = new List<Version>();
     }
 }

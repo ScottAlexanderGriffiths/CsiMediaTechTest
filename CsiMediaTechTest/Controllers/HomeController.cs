@@ -1,5 +1,6 @@
 ﻿using CsiMediaTechTest.Models;
 using CsiMediaTechTest.Services;
+using System.Text;
 using System.Web.Mvc;
 
 namespace CsiMediaTechTest.Controllers
@@ -42,6 +43,14 @@ namespace CsiMediaTechTest.Controllers
             ValuesService = new ValuesService();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Export()
+        {
+            var xmlString = ValuesService.ExportChangeLog();
+
+            return File(Encoding.UTF8.GetBytes(xmlString), "application/xml", "ChangeLog.xml");
         }
     }
 }

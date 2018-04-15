@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GivenARequestToAddAValue\WhenTheValueIsNotValid.cs" />
     <Compile Include="Services\GivenARequestToAddAValue\WhenTheValueIsValid.cs" />
+    <Compile Include="Services\GivenARequestToExportTheChangeLog\WhenTheChangeLogIsPopulated.cs" />
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlySortedAscending.cs" />
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlySortedDescending.cs" />
     <Compile Include="Services\GivenARequestToSortValues\WhenCurrentlyUnordered.cs" />

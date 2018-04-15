@@ -2,6 +2,9 @@
 using System.Linq;
 using CsiMediaTechTest.Models;
 using System.Diagnostics;
+using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace CsiMediaTechTest.Services
 {
@@ -11,7 +14,7 @@ namespace CsiMediaTechTest.Services
 
         private List<int> Values = new List<int>();
 
-        private List<ValueModel> ChangeLog = new List<ValueModel>();
+        private ChangeLog ChangeLog = new ChangeLog();
 
         public void AddValue(int? value)
         {
@@ -52,16 +55,27 @@ namespace CsiMediaTechTest.Services
             UpdateChangeLog(stopwatch.ElapsedMilliseconds);
         }
 
-        public List<ValueModel> GetChangeLog()
+        public List<Version> GetChangeLog()
         {
-            return ChangeLog;
+            return ChangeLog.Versions;
+        }
+
+        public string ExportChangeLog()
+        {
+            var xmlSerializer = new XmlSerializer(typeof(ChangeLog));
+            var stringWriter = new StringWriter();
+            using (var writer = XmlWriter.Create(stringWriter, new XmlWriterSettings { Indent = true }))
+            {
+                xmlSerializer.Serialize(writer, ChangeLog);
+                return stringWriter.ToString();
+            }
         }
 
         private void UpdateChangeLog(long sortTime)
         {
-            var change = new ValueModel
+            var change = new Version
             {
-                Version = ChangeLog.Count + 1,
+                VersionNumber = ChangeLog.Versions.Count + 1,
                 SortBy = SortBy,
                 TimeTaken = sortTime
             };
@@ -71,7 +85,7 @@ namespace CsiMediaTechTest.Services
                 change.Values.Add(value);
             }
 
-            ChangeLog.Add(change);
+            ChangeLog.Versions.Add(change);
         }
     }
 }

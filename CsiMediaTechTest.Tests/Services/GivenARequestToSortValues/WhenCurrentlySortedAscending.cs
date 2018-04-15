@@ -42,7 +42,7 @@ namespace CsiMediaTechTest.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenThereIsANewEntryInTheChangeLog()
         {
-            Assert.That(_subject.GetChangeLog().Last().Version, Is.EqualTo(1));
+            Assert.That(_subject.GetChangeLog().Last().VersionNumber, Is.EqualTo(1));
             Assert.That(_subject.GetChangeLog().Last().Values.Count, Is.EqualTo(3));
             Assert.That(_subject.GetChangeLog().Last().Values.Last(), Is.EqualTo(100));
             Assert.That(_subject.GetChangeLog().Last().SortBy, Is.EqualTo(Models.SortByEnum.Desc));
