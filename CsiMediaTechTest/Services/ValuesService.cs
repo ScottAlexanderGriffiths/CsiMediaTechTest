@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CsiMediaTechTest.Models;
 
@@ -10,14 +11,17 @@ namespace CsiMediaTechTest.Services
 
         private List<int> Values = new List<int>();
 
+        private List<ValueModel> ChangeLog = new List<ValueModel>();
+
         public void AddValue(int? value)
         {
             if (value.HasValue)
             {
                 SortBy = SortByEnum.Unordered;
                 Values.Add(value.Value);
-            }
 
+                ChangeLog.Add(new ValueModel { Version = ChangeLog.Count + 1, SortBy = SortBy, Values = Values });
+            }
         }
 
         public List<int> GetValues()
@@ -42,6 +46,13 @@ namespace CsiMediaTechTest.Services
                     SortBy = SortByEnum.Asc;
                     break;
             }
+
+            ChangeLog.Add(new ValueModel { Version = ChangeLog.Count + 1, SortBy = SortBy, Values = Values });
+        }
+
+        public List<ValueModel> GetChangeLog()
+        {
+            return ChangeLog;
         }
     }
 }
