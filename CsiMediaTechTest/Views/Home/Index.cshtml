@@ -95,6 +95,7 @@
                         <tr>
                             <th scope="col">Version</th>
                             <th scope="col">Ordered</th>
+                            <th scope="col">Time Taken</th>
                             <th scope="col" colspan="100">Values</th>
                         </tr>
                     </thead>
@@ -102,7 +103,7 @@
                         @foreach (var change in Model.ChangeLog)
                         {
                             <tr>
-                                <th scope="row">@change.Version</th>
+                                <td>@change.Version</td>
                                 @if (change.SortBy == CsiMediaTechTest.Models.SortByEnum.Unordered)
                                 {
                                     <td>Unordered</td>
@@ -116,6 +117,7 @@
                                     <td>Descending</td>
                                 }
 
+                                <td>@change.TimeTaken ms</td>
                                 @foreach (var value in change.Values)
                                 {
                                     <td>@value</td>
