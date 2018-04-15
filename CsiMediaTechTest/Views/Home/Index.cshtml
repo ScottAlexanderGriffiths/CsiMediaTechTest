@@ -48,6 +48,11 @@
                     {
                         <p>Currently sorting in descending order.</p>
                     }
+
+                    using (Html.BeginForm("Reset", "Home"))
+                    {
+                        <input class="btn btn-danger" type="submit" value="Reset" />
+                    }
                 }
             </div>
 
@@ -80,8 +85,9 @@
         </div>
 
 
-        @if (Model.Values.Any())
+        @if (Model.ChangeLog.Any())
         {
+            <hr/>
             <h3>Change Log</h3>
             <div class="table-responsive">
                 <table class="table table-hover">

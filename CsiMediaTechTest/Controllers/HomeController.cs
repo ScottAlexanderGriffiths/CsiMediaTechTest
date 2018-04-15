@@ -35,5 +35,13 @@ namespace CsiMediaTechTest.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Reset()
+        {
+            ValuesService = new ValuesService();
+
+            return RedirectToAction("Index");
+        }
     }
 }
