@@ -1,4 +1,4 @@
-﻿
+﻿@model CsiMediaTechTest.Models.HomeViewModel
 @{
     Layout = null;
 }
@@ -20,74 +20,84 @@
 
         <div class="row">
             <div class="col-md-4">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Input</span>
+
+                @using (Html.BeginForm("AddInput", "Home"))
+                {
+                    <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Input</span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Input, new { @class = "form-control", autofocus = "autofocus" })
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-secondary" type="submit" value="Create" />
+                        </div>
                     </div>
-                    <input type="text" class="form-control">
-                </div>
+                }
+
+
             </div>
-            <div class="col-md-8">
+
+            @if (Model.Values.Any())
+            {
+                <div class="col-md-8">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.Values.Count(); i++)
+                            {
+                                <tr>
+                                    <th scope="row">@(i+1)</th>
+                                    <td>@Model.Values[i]</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        </div>
+
+        @*<div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Value</th>
+                            <th scope="col">Version</th>
+                            <th scope="col">Ordered</th>
+                            <th scope="col" colspan="100">Values</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">3</th>
+                            <td>Ascending</td>
+                            <td>123</td>
                             <td>234</td>
+                            <td>456</td>
+                            <td>789</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>223</td>
+                            <td>Descending</td>
+                            <td>789</td>
+                            <td>456</td>
+                            <td>234</td>
+                            <td>123</td>
                         </tr>
                         <tr>
-                            <th scope="row">3</th>
-                            <td>99</td>
+                            <th scope="row">1</th>
+                            <td>Ascending</td>
+                            <td>123</td>
+                            <td>234</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Version</th>
-                        <th scope="col">Ordered</th>
-                        <th scope="col" colspan="100">Values</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Ascending</td>
-                        <td>123</td>
-                        <td>234</td>
-                        <td>456</td>
-                        <td>789</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Descending</td>
-                        <td>789</td>
-                        <td>456</td>
-                        <td>234</td>
-                        <td>123</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Ascending</td>
-                        <td>123</td>
-                        <td>234</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </div>*@
 
     </div>
 
