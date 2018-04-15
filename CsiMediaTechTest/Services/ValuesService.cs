@@ -6,14 +6,18 @@ namespace CsiMediaTechTest.Services
 {
     public class ValuesService
     {
-        public SortByEnum SortBy { get; set; }
+        public SortByEnum SortBy { get; private set; }
 
-        private List<int> Values { get; set; } = new List<int>();
+        private List<int> Values = new List<int>();
 
-        public void AddValue(int value)
+        public void AddValue(int? value)
         {
-            SortBy = SortByEnum.Unordered;
-            Values.Add(value);
+            if (value.HasValue)
+            {
+                SortBy = SortByEnum.Unordered;
+                Values.Add(value.Value);
+            }
+
         }
 
         public List<int> GetValues()
