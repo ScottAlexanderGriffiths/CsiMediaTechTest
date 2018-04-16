@@ -11,6 +11,6 @@ namespace Data.Records
         public int Version { get; set; }
         public long TimeTaken { get; set; }
         public virtual SortTypeRecord SortType { get; set; }
-        public virtual List<ValueRecord> Values { get; set; }
+        public virtual List<ChangeLogValueRecord> Values { get; set; }
     }
 }

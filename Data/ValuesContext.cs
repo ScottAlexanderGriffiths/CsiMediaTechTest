@@ -15,5 +15,7 @@ namespace Data
         public ValuesContext() : base("AzureDb") {}
 
         public DbSet<ValueRecord> Values { get; set; }
+
+        public DbSet<ChangeLogRecord> ChangeLogs { get; set; }
     }
 }

@@ -53,9 +53,14 @@
     <Compile Include="Migrations\201804160000199_initial.Designer.cs">
       <DependentUpon>201804160000199_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160117492_AddingChangeLog.cs" />
+    <Compile Include="Migrations\201804160117492_AddingChangeLog.Designer.cs">
+      <DependentUpon>201804160117492_AddingChangeLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\ChangeLogRecord.cs" />
+    <Compile Include="Records\ChangeLogValuesRecord.cs" />
     <Compile Include="Records\SortTypeRecord.cs" />
     <Compile Include="Records\ValueRecord.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -73,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804160000199_initial.resx">
       <DependentUpon>201804160000199_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160117492_AddingChangeLog.resx">
+      <DependentUpon>201804160117492_AddingChangeLog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
