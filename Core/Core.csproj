@@ -46,6 +46,12 @@
     <Compile Include="Types\Version.cs" />
     <Compile Include="ValuesService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{ADD3413F-4C6B-4F78-97FE-AFAC8B193CD0}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using Data;
 
 namespace Core.Types
 {
