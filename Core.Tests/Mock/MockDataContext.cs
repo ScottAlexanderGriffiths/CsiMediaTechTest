@@ -5,6 +5,27 @@ namespace Core.Tests.Mock
 {
     public class MockDataContext
     {
+
+        public List<CurrentSortDirectionRecord> CurrentSortDirectionRecord
+        {
+            get
+            {
+                return new List<CurrentSortDirectionRecord>
+                {
+                    new CurrentSortDirectionRecord
+                    {
+                        Id = 1,
+                        SortType = new SortTypeRecord
+                        {
+                            Id = 1,
+                            Name = "Unordered"
+                        }
+                    }
+                };
+
+            }
+        }
+
         public List<SortTypeRecord> SortTypeRecord
         {
             get

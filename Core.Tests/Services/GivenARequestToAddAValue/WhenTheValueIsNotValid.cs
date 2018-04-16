@@ -14,6 +14,7 @@ namespace Core.Tests.Services.GivenARequestToAddAValue
         {
             var mockUnitOfWork = new MockUnitOfWork<MockDataContext>();
             _subject = new ValuesService(mockUnitOfWork);
+            _subject.SortValues(SortByEnum.Asc);
             _subject.AddValue(null);
         }
 
