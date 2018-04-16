@@ -12,7 +12,7 @@ namespace Data
 
     public class ValuesContext : DbContext, IDbContext
     {
-        public ValuesContext() : base("AzureDb") {}
+        public ValuesContext() : base() {}
 
         public DbSet<ValueRecord> Values { get; set; }
 
