@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentSortDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ChangeLog.cs" />
     <Compile Include="Types\SortByEnum.cs" />

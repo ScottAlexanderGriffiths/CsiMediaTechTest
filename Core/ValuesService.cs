@@ -16,9 +16,7 @@ namespace Core.Types
         private IRepository<ValueRecord> _valuesRepo;
         private IRepository<ChangeLogRecord> _changeLogRepo;
         private IRepository<ChangeLogValueRecord> _changeLogValueRepo;
-        private IRepository<SortTypeRecord> _sortTypeRepo;
-
-        public static SortByEnum SortBy { get; private set; } = SortByEnum.Unordered;
+        private CurrentSortDirection _currentSortDirection;
 
         public ValuesService() : this(new UnitOfWork<ValuesContext>()) { }
 
@@ -28,14 +26,14 @@ namespace Core.Types
             _valuesRepo = _unitOfWork.GetRepository<ValueRecord>();
             _changeLogRepo = _unitOfWork.GetRepository<ChangeLogRecord>();
             _changeLogValueRepo = _unitOfWork.GetRepository<ChangeLogValueRecord>();
-            _sortTypeRepo = _unitOfWork.GetRepository<SortTypeRecord>();
+            _currentSortDirection = new CurrentSortDirection(_unitOfWork);
         }
 
         public void AddValue(int? value)
         {
             if (value.HasValue)
             {
-                SortBy = SortByEnum.Unordered;
+                _currentSortDirection.Update(SortByEnum.Unordered);
                 _valuesRepo.Add(new ValueRecord { Value = value.Value });
                 _unitOfWork.Save();
             }
@@ -43,7 +41,7 @@ namespace Core.Types
 
         public List<int> GetValues()
         {
-            if (SortBy == SortByEnum.Unordered)
+            if (_currentSortDirection.Get() == SortByEnum.Unordered)
                 return _valuesRepo.Get().Select(record => record.Value).ToList();
 
             return _changeLogRepo.Get()
@@ -59,7 +57,7 @@ namespace Core.Types
             _changeLogRepo.Clear();
             _valuesRepo.Clear();
             _unitOfWork.Save();
-            SortBy = SortByEnum.Unordered;
+            _currentSortDirection.Update(SortByEnum.Unordered);
         }
 
         public void SortValues(SortByEnum currentSortBy)
@@ -70,15 +68,15 @@ namespace Core.Types
             {
                 case SortByEnum.Unordered:
                     values = values.OrderBy(x => x.Value).ToList();
-                    SortBy = SortByEnum.Asc;
+                    _currentSortDirection.Update(SortByEnum.Asc);
                     break;
                 case SortByEnum.Asc:
                     values = values.OrderByDescending(x => x.Value).ToList();
-                    SortBy = SortByEnum.Desc;
+                    _currentSortDirection.Update(SortByEnum.Desc);
                     break;
                 case SortByEnum.Desc:
                     values = values.OrderBy(x => x.Value).ToList();
-                    SortBy = SortByEnum.Asc;
+                    _currentSortDirection.Update(SortByEnum.Asc);
                     break;
             }
 
@@ -91,11 +89,11 @@ namespace Core.Types
         {
             return new ChangeLog
             {
-                Versions = _changeLogRepo.Get()
+                Versions = _changeLogRepo.Get().ToList()
                     .Select(changeLog => new Version
                     {
                         VersionNumber = changeLog.Version,
-                        SortBy = (SortByEnum)changeLog.SortType.Id,
+                        SortBy = SortBy.From(changeLog.SortType.Name),
                         TimeTaken = changeLog.TimeTaken,
                         Values = changeLog.Values.Select(valueRecord => valueRecord.Value.Value).ToList()
                     })
@@ -105,7 +103,7 @@ namespace Core.Types
         }
         public SortByEnum GetCurrentSortDirection()
         {
-            return SortBy;
+            return _currentSortDirection.Get();
         }
 
         public string ExportChangeLog()
@@ -125,7 +123,7 @@ namespace Core.Types
             var changeLogRecord = new ChangeLogRecord
             {
                 Version = changeLogs.Any() ? changeLogs.Max(x => x.Version) + 1 : 1,
-                SortType = _sortTypeRepo.Get().FirstOrDefault(sortType => sortType.Id == (int)SortBy),
+                SortType = _currentSortDirection.GetRecord(),
                 TimeTaken = elapsedMilliseconds,
                 Values = new List<ChangeLogValueRecord>()
             };

@@ -61,10 +61,23 @@
     <Compile Include="Migrations\201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.Designer.cs">
       <DependentUpon>201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160334242_AddingPersistentStorageForTheCurrentSortDirection.cs" />
+    <Compile Include="Migrations\201804160334242_AddingPersistentStorageForTheCurrentSortDirection.Designer.cs">
+      <DependentUpon>201804160334242_AddingPersistentStorageForTheCurrentSortDirection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160400114_UpdatingSortTypeToBeNotNullable.cs" />
+    <Compile Include="Migrations\201804160400114_UpdatingSortTypeToBeNotNullable.Designer.cs">
+      <DependentUpon>201804160400114_UpdatingSortTypeToBeNotNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160425372_UpdatingCurrentSortDirectionNotHaveANotNullSortType.cs" />
+    <Compile Include="Migrations\201804160425372_UpdatingCurrentSortDirectionNotHaveANotNullSortType.Designer.cs">
+      <DependentUpon>201804160425372_UpdatingCurrentSortDirectionNotHaveANotNullSortType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\ChangeLogRecord.cs" />
     <Compile Include="Records\ChangeLogValuesRecord.cs" />
+    <Compile Include="Records\CurrentSortDirectionRecord.cs" />
     <Compile Include="Records\SortTypeRecord.cs" />
     <Compile Include="Records\ValueRecord.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -88,6 +101,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.resx">
       <DependentUpon>201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160334242_AddingPersistentStorageForTheCurrentSortDirection.resx">
+      <DependentUpon>201804160334242_AddingPersistentStorageForTheCurrentSortDirection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160400114_UpdatingSortTypeToBeNotNullable.resx">
+      <DependentUpon>201804160400114_UpdatingSortTypeToBeNotNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160425372_UpdatingCurrentSortDirectionNotHaveANotNullSortType.resx">
+      <DependentUpon>201804160425372_UpdatingCurrentSortDirectionNotHaveANotNullSortType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

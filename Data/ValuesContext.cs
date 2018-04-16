@@ -17,5 +17,6 @@ namespace Data
         public DbSet<ValueRecord> Values { get; set; }
 
         public DbSet<ChangeLogRecord> ChangeLogs { get; set; }
+        public DbSet<CurrentSortDirectionRecord> CurrentSortDirection { get; set; }
     }
 }
