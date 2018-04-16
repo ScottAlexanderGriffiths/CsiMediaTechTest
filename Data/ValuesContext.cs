@@ -3,7 +3,14 @@ using System.Data.Entity;
 
 namespace Data
 {
-    internal class ValuesContext : DbContext
+    public interface IDbContext
+    {
+        DbSet<T> Set<T>() where T : class;
+        int SaveChanges();
+        void Dispose();
+    }
+
+    public class ValuesContext : DbContext, IDbContext
     {
         public ValuesContext() : base("AzureDb") {}
 

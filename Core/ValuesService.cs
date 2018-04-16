@@ -5,6 +5,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using Data;
+using Data.Repositories;
 
 namespace Core.Types
 {

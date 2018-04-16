@@ -58,8 +58,11 @@
     <Compile Include="Records\ChangeLogRecord.cs" />
     <Compile Include="Records\SortTypeRecord.cs" />
     <Compile Include="Records\ValueRecord.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="ValuesContext.cs" />
-    <Compile Include="ValuesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
