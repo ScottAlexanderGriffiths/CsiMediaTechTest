@@ -6,5 +6,6 @@ namespace Data.Repositories
     {
         IQueryable<T> Get();
         void Add(T record);
+        void Clear();
     }
 }

@@ -2,7 +2,7 @@
 {
     public enum SortByEnum
     {
-        Unordered,
+        Unordered = 1,
         Asc,
         Desc
     }

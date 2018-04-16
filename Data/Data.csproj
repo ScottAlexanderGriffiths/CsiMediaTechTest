@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201804160117492_AddingChangeLog.Designer.cs">
       <DependentUpon>201804160117492_AddingChangeLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.cs" />
+    <Compile Include="Migrations\201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.Designer.cs">
+      <DependentUpon>201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\ChangeLogRecord.cs" />
@@ -81,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804160117492_AddingChangeLog.resx">
       <DependentUpon>201804160117492_AddingChangeLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.resx">
+      <DependentUpon>201804160244519_FixingChangeLogHavingItsVersionAsThePrimaryKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

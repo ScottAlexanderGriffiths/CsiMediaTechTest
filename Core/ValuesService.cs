@@ -5,59 +5,107 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
 using Data;
+using Data.Repositories;
+using Data.Records;
 
 namespace Core.Types
 {
     public class ValuesService
     {
-        public SortByEnum SortBy { get; private set; }
+        private IUnitOfWork _unitOfWork;
+        private IRepository<ValueRecord> _valuesRepo;
+        private IRepository<ChangeLogRecord> _changeLogRepo;
+        private IRepository<ChangeLogValueRecord> _changeLogValueRepo;
+        private IRepository<SortTypeRecord> _sortTypeRepo;
 
-        private List<int> Values = new List<int>();
+        public static SortByEnum SortBy { get; private set; } = SortByEnum.Unordered;
 
-        private ChangeLog ChangeLog = new ChangeLog();
+        public ValuesService() : this(new UnitOfWork<ValuesContext>()) { }
+
+        public ValuesService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            _valuesRepo = _unitOfWork.GetRepository<ValueRecord>();
+            _changeLogRepo = _unitOfWork.GetRepository<ChangeLogRecord>();
+            _changeLogValueRepo = _unitOfWork.GetRepository<ChangeLogValueRecord>();
+            _sortTypeRepo = _unitOfWork.GetRepository<SortTypeRecord>();
+        }
 
         public void AddValue(int? value)
         {
             if (value.HasValue)
             {
                 SortBy = SortByEnum.Unordered;
-                Values.Add(value.Value);
+                _valuesRepo.Add(new ValueRecord { Value = value.Value });
+                _unitOfWork.Save();
             }
         }
 
         public List<int> GetValues()
         {
-            return Values;
+            if (SortBy == SortByEnum.Unordered)
+                return _valuesRepo.Get().Select(record => record.Value).ToList();
+
+            return _changeLogRepo.Get()
+                .OrderByDescending(changeLog => changeLog.Version).First()
+                .Values.OrderBy(value => value.Position)
+                .Select(valueRecord => valueRecord.Value.Value)
+                .ToList();
+        }
+
+        public void Reset()
+        {
+            _changeLogValueRepo.Clear();
+            _changeLogRepo.Clear();
+            _valuesRepo.Clear();
+            _unitOfWork.Save();
+            SortBy = SortByEnum.Unordered;
         }
 
         public void SortValues(SortByEnum currentSortBy)
         {
             var stopwatch = Stopwatch.StartNew();
-
+            var values = _valuesRepo.Get().ToList();
             switch (currentSortBy)
             {
                 case SortByEnum.Unordered:
-                    Values = Values.OrderBy(x => x).ToList();
+                    values = values.OrderBy(x => x.Value).ToList();
                     SortBy = SortByEnum.Asc;
                     break;
                 case SortByEnum.Asc:
-                    Values = Values.OrderByDescending(x => x).ToList();
+                    values = values.OrderByDescending(x => x.Value).ToList();
                     SortBy = SortByEnum.Desc;
                     break;
                 case SortByEnum.Desc:
-                    Values = Values.OrderBy(x => x).ToList();
+                    values = values.OrderBy(x => x.Value).ToList();
                     SortBy = SortByEnum.Asc;
                     break;
             }
 
             stopwatch.Stop();
 
-            UpdateChangeLog(stopwatch.ElapsedMilliseconds);
+            UpdateChangeLog(stopwatch.ElapsedMilliseconds, values);
         }
 
-        public List<Version> GetChangeLog()
+        public ChangeLog GetChangeLog()
         {
-            return ChangeLog.Versions;
+            return new ChangeLog
+            {
+                Versions = _changeLogRepo.Get()
+                    .Select(changeLog => new Version
+                    {
+                        VersionNumber = changeLog.Version,
+                        SortBy = (SortByEnum)changeLog.SortType.Id,
+                        TimeTaken = changeLog.TimeTaken,
+                        Values = changeLog.Values.Select(valueRecord => valueRecord.Value.Value).ToList()
+                    })
+                    .ToList()
+            };
+
+        }
+        public SortByEnum GetCurrentSortDirection()
+        {
+            return SortBy;
         }
 
         public string ExportChangeLog()
@@ -66,26 +114,33 @@ namespace Core.Types
             var stringWriter = new StringWriter();
             using (var writer = XmlWriter.Create(stringWriter))
             {
-                xmlSerializer.Serialize(writer, ChangeLog);
+                xmlSerializer.Serialize(writer, GetChangeLog());
                 return stringWriter.ToString();
             }
         }
 
-        private void UpdateChangeLog(long sortTime)
+        private void UpdateChangeLog(long elapsedMilliseconds, List<ValueRecord> values)
         {
-            var change = new Version
+            var changeLogs = _changeLogRepo.Get().ToList();
+            var changeLogRecord = new ChangeLogRecord
             {
-                VersionNumber = ChangeLog.Versions.Count + 1,
-                SortBy = SortBy,
-                TimeTaken = sortTime
+                Version = changeLogs.Any() ? changeLogs.Max(x => x.Version) + 1 : 1,
+                SortType = _sortTypeRepo.Get().FirstOrDefault(sortType => sortType.Id == (int)SortBy),
+                TimeTaken = elapsedMilliseconds,
+                Values = new List<ChangeLogValueRecord>()
             };
 
-            foreach(var value in Values)
+            for (var i = 0; i < values.Count; i++)
             {
-                change.Values.Add(value);
+                changeLogRecord.Values.Add(new ChangeLogValueRecord
+                {
+                    Value = values[i],
+                    Position = i + 1
+                });
             }
 
-            ChangeLog.Versions.Add(change);
+            _changeLogRepo.Add(changeLogRecord);
+            _unitOfWork.Save();
         }
     }
 }

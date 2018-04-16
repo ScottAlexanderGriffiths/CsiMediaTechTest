@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using Core.Types;
+using Core.Tests.Mock;
 
 namespace Core.Tests.Services.GivenARequestToAddAValue
 {
@@ -12,7 +13,8 @@ namespace Core.Tests.Services.GivenARequestToAddAValue
         [SetUp]
         public void SetUp()
         {
-            _subject = new ValuesService();
+            var mockUnitOfWork = new MockUnitOfWork<MockDataContext>();
+            _subject = new ValuesService(mockUnitOfWork);
             _subject.AddValue(123);
         }
 
@@ -25,13 +27,13 @@ namespace Core.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenTheSortOrderIsSetToUnordered()
         {
-            Assert.That(_subject.SortBy, Is.EqualTo(SortByEnum.Unordered));
+            Assert.That(_subject.GetCurrentSortDirection(), Is.EqualTo(SortByEnum.Unordered));
         }
 
         [TestCase]
         public void ThenThereIsOnlyOneItemInTheList()
         {
-            Assert.That(_subject.GetValues().Count(), Is.EqualTo(1));
+            Assert.That(_subject.GetValues().Count(), Is.EqualTo(4));
         }
     }
 }

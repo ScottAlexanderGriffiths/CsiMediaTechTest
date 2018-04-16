@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 using Core.Types;
+using Core.Tests.Mock;
 
 namespace Core.Tests.Services.GivenARequestToAddAValue
 {
@@ -12,25 +13,23 @@ namespace Core.Tests.Services.GivenARequestToAddAValue
         [SetUp]
         public void SetUp()
         {
-            _subject = new ValuesService();
-            _subject.AddValue(100);
-            _subject.AddValue(200);
-            _subject.AddValue(300);
+            var mockUnitOfWork = new MockUnitOfWork<MockDataContext>();
+            _subject = new ValuesService(mockUnitOfWork);
             _subject.SortValues(SortByEnum.Asc);
         }
 
         [TestCase]
         public void ThenTheListIsSortedInDescendingOrder()
         {
-            Assert.That(_subject.GetValues()[0], Is.EqualTo(300));
-            Assert.That(_subject.GetValues()[1], Is.EqualTo(200));
-            Assert.That(_subject.GetValues()[2], Is.EqualTo(100));
+            Assert.That(_subject.GetValues()[0], Is.EqualTo(99));
+            Assert.That(_subject.GetValues()[1], Is.EqualTo(66));
+            Assert.That(_subject.GetValues()[2], Is.EqualTo(33));
         }
 
         [TestCase]
         public void ThenTheSortByIsSetToDesc()
         {
-            Assert.That(_subject.SortBy, Is.EqualTo(SortByEnum.Desc));
+            Assert.That(_subject.GetCurrentSortDirection(), Is.EqualTo(SortByEnum.Desc));
         }
 
         [TestCase]
@@ -42,10 +41,10 @@ namespace Core.Tests.Services.GivenARequestToAddAValue
         [TestCase]
         public void ThenThereIsANewEntryInTheChangeLog()
         {
-            Assert.That(_subject.GetChangeLog().Last().VersionNumber, Is.EqualTo(1));
-            Assert.That(_subject.GetChangeLog().Last().Values.Count, Is.EqualTo(3));
-            Assert.That(_subject.GetChangeLog().Last().Values.Last(), Is.EqualTo(100));
-            Assert.That(_subject.GetChangeLog().Last().SortBy, Is.EqualTo(SortByEnum.Desc));
+            Assert.That(_subject.GetChangeLog().Versions.Last().VersionNumber, Is.EqualTo(4));
+            Assert.That(_subject.GetChangeLog().Versions.Last().Values.Count, Is.EqualTo(3));
+            Assert.That(_subject.GetChangeLog().Versions.Last().Values.Last(), Is.EqualTo(33));
+            Assert.That(_subject.GetChangeLog().Versions.Last().SortBy, Is.EqualTo(SortByEnum.Desc));
         }
     }
 }

@@ -7,15 +7,20 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-        public static ValuesService ValuesService { get; set; } = new ValuesService();
+        private ValuesService _valuesService;
+
+        public HomeController()
+        {
+            _valuesService = new ValuesService();
+        }
         
         public ActionResult Index()
         {
             var viewmodel = new HomeViewModel
             {
-                Values = ValuesService.GetValues(),
-                SortBy = ValuesService.SortBy,
-                ChangeLog = ValuesService.GetChangeLog()
+                Values = _valuesService.GetValues(),
+                SortBy = _valuesService.GetCurrentSortDirection(),
+                ChangeLog = _valuesService.GetChangeLog().Versions
             };
 
             return View(viewmodel);
@@ -24,7 +29,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult AddInput(HomeViewModel request)
         {
-            ValuesService.AddValue(request.Input);
+            _valuesService.AddValue(request.Input);
 
             return RedirectToAction("Index");
         }
@@ -32,7 +37,7 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult SortValues(HomeViewModel request)
         {
-            ValuesService.SortValues(request.SortBy);
+            _valuesService.SortValues(request.SortBy);
 
             return RedirectToAction("Index");
         }
@@ -40,7 +45,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Reset()
         {
-            ValuesService = new ValuesService();
+            _valuesService.Reset();
 
             return RedirectToAction("Index");
         }
@@ -48,7 +53,7 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Export()
         {
-            var xmlString = ValuesService.ExportChangeLog();
+            var xmlString = _valuesService.ExportChangeLog();
 
             return File(Encoding.UTF8.GetBytes(xmlString), "application/xml", "ChangeLog.xml");
         }

@@ -8,6 +8,7 @@ namespace Data.Records
     public class ChangeLogRecord
     {
         [Key]
+        public int Id { get; set; }
         public int Version { get; set; }
         public long TimeTaken { get; set; }
         public virtual SortTypeRecord SortType { get; set; }

@@ -22,5 +22,13 @@ namespace Data.Repositories
         {
             _dbset.Add(record);
         }
+
+        public void Clear()
+        {
+            foreach(var record in Get())
+            {
+                _dbset.Remove(record);
+            }
+        }
     }
 }
